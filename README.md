@@ -135,9 +135,10 @@ Luego podrás visualizar el linaje en tu consola de DataHub:
 Browse → Lineage → dtpm_gsit_staging_dev.abt_transaccion
 
 ### 6. Ejemplo de entrada (datos.csv)
-id,input_table_source,input_table,input_column,input_column_data_type,input_add_schema,output_table_destination,output_table,output_column,output_column_data_type,output_add_schema,transformation
-1,athena,dtpm_gsit_raw_dev.abt_transaccion,idtransaccion,string,False,athena,dtpm_gsit_staging_dev.abt_transaccion,idtransaccion,bigint,False,False
-
+```
+job_name,id,input_table_source,input_table,input_column,input_column_data_type,input_add_schema,output_table_destination,output_table,output_column,output_column_data_type,output_add_schema,transformation
+sitio,1,athena,dtpm_gsit_raw_dev.sitio,idsitio,string,False,athena,dtpm_gsit_staging_dev.sitio,id_sitio,bigint,False,False
+```
 
 ---
 
@@ -215,7 +216,7 @@ Este archivo contiene la configuración de tu instancia de DataHub:
 ```bash
 [
   {
-    "term": "fecha_trx",
+    "term": "fecha_trx_abt_transaccion",
     "description": "Fecha y hora en que se registró la transacción.",
     "field": "fecha_trx",
     "database": "dtpm_gsit_raw_dev",
@@ -224,7 +225,7 @@ Este archivo contiene la configuración de tu instancia de DataHub:
     "env": "PROD"
   },
   {
-    "term": "direccion",
+    "term": "direccion_abt_transaccion",
     "description": "Ubicación registrada del comprador al momento de la transacción.",
     "field": "direccion",
     "database": "dtpm_gsit_raw_dev",
@@ -234,7 +235,7 @@ Este archivo contiene la configuración de tu instancia de DataHub:
   }
 ]
 ```
-✅ Consejo: Asegúrate de que el campo "term" coincida exactamente con el nombre de la columna ("field") si deseas que se vea como Matches column term en la UI de DataHub.
+✅ Consejo: Asegúrate de que el campo "term" tenga relación con el nombre de la columna ("field") , es decir si tienes una columna llamada descripción, pueden existir varia columnas llamadas asi en multiples tablas, por lo tanto seria tener term: direccion_abt_transaccion (nombre de la tabla)_(nombre de la columna) si deseas que se vea como Matches column term en la UI de DataHub, y evitar conflictos de nombres.
 
 ### 5. Ejecución
 Una vez configurado el entorno, ejecuta:

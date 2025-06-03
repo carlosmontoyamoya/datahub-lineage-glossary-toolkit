@@ -21,9 +21,12 @@ This repository contains tools to automate:
 
 # DataHub Lineage Local Runner
 
-This repository allows you to **emit column lineage between tables** locally using [`openlineage-python`](https://github.com/OpenLineage/OpenLineage) and DataHub, integrating a CSV file with the relationships.
+This repository enables **emitting column lineage between tables** locally using [`openlineage-python`](https://github.com/OpenLineage/OpenLineage) and DataHub, integrating a CSV file with the relationships.
 
 ---
+
+![Image Description](./img/lineage_01.png)
+
 
 ## 📌 Objective
 
@@ -33,32 +36,32 @@ Create lineage events between source and destination datasets defined in a CSV f
 
 ## 📁 Project Structure
 ```bash
-├── create_lineage_local.py # Main script that emits lineage
+├── create_lineage_local.py # Main script to emit lineage
 ├── config.json # DataHub connection configuration
 ├── datos.csv # CSV file with lineage columns
 ├── README.md # Documentation
 ```
-### Configuration Example
+### 📝 Additional Note
 
-The repository includes example files that serve as templates to configure your working environment without compromising sensitive information.
+The repository includes example files that serve as templates to configure your work environment without compromising sensitive information.
 
-`datos_example.csv` defines the expected format for the `datos.csv` file, which has been excluded from version control via `.gitignore`. You can use this example file as a base to create your own `datos.csv`, ensuring that you adhere to the established columns and structure.
+`datos_example.csv` defines the expected format for the `datos.csv` file, which has been excluded from version control via `.gitignore`. You can use this example file as a base to create your own `datos.csv`, ensuring you respect the established columns and structure.
 
-Similarly, `config_example.json` acts as a reference to build your `config.json` file, which is also ignored by Git. From this file, you can generate your own customized configuration while maintaining the required keys and structure.
+Similarly, `config_example.json` acts as a reference to build your `config.json` file, also ignored by Git. From this file, you can generate your own custom configuration while maintaining the necessary keys and structure.
 
 ---
 
 ## 📋 Requirements
 
 - Python >= 3.9 (recommended to use Anaconda)
-- DataHub account with GMS exposed
+- DataHub account with exposed GMS
 - Authentication token (DataHub API Key)
 
 ---
 
 ## 📦 Installation
 
-### 1. Create and activate a virtual environment (with Anaconda)
+### 1. Create and activate virtual environment (using Anaconda)
 
 ```bash
 conda create -n lineage-env python=3.10 -y
@@ -72,7 +75,7 @@ pip install openlineage-python pandas
 ```
 
 
-You can also install them directly using conda create:
+You can also install directly using conda create:
 ```bash
 conda install --file conda-lineage-requirements.txt
 ```
@@ -104,17 +107,18 @@ linage_csv_s3_paths: list of CSV files with lineage definitions
 ### 4. CSV Structure (datos.csv)
 | Field                      | Type | Description                                       |
 | -------------------------- | ---- | ------------------------------------------------- |
-| id                         | int  | Sequential ID                                     |
+| job_name                   | str  | Name of the job generating lineage for the relationship |
+| id                         | int  | Sequential ID                                    |
 | input\_table\_source       | str  | Source (namespace), e.g., `athena`, `glue`       |
 | input\_table               | str  | Full name of the input table                     |
 | input\_column              | str  | Source column                                    |
 | input\_column\_data\_type  | str  | Data type                                        |
-| input\_add\_schema         | bool | `True` if input schema should be included        |
+| input\_add\_schema         | bool | `True` if schema of the input should be included |
 | output\_table\_destination | str  | Destination (namespace)                          |
 | output\_table              | str  | Full name of the destination table               |
 | output\_column             | str  | Destination column                               |
 | output\_column\_data\_type | str  | Data type                                        |
-| output\_add\_schema        | bool | `True` if output schema should be included       |
+| output\_add\_schema        | bool | `True` if schema of the output should be included|
 | transformation             | bool | `True` if there is a transformation in the column|
 
 ### 5. Execution
@@ -127,26 +131,29 @@ If everything is correct, you will see:
 ```bash
 ✅ Lineage emitted for job lineage-local-test
 ```
-You can then view the lineage in your DataHub console:
+You can then visualize the lineage in your DataHub console:
 Browse → Lineage → dtpm_gsit_staging_dev.abt_transaccion
 
-### 6. Input Example (datos.csv)
-id,input_table_source,input_table,input_column,input_column_data_type,input_add_schema,output_table_destination,output_table,output_column,output_column_data_type,output_add_schema,transformation
-1,athena,dtpm_gsit_raw_dev.abt_transaccion,idtransaccion,string,False,athena,dtpm_gsit_staging_dev.abt_transaccion,idtransaccion,bigint,False,False
-
+### 6. Example Input (datos.csv)
+```
+job_name,id,input_table_source,input_table,input_column,input_column_data_type,input_add_schema,output_table_destination,output_table,output_column,output_column_data_type,output_add_schema,transformation
+site,1,athena,dtpm_gsit_raw_dev.site,idsite,string,False,athena,dtpm_gsit_staging_dev.site,id_site,bigint,False,False
+```
 
 ---
 
 
 # DataHub Glossary Local Runner - Column Associations
 
-This module allows you to create glossary terms and automatically associate them with specific columns of a dataset in DataHub, using editableSchemaMetadata.
+This module allows creating glossary terms and automatically associating them with specific columns of a dataset in DataHub, using editableSchemaMetadata.
 
 ---
 
+![Image Description](./img/glossary_01.png)
+
 ## 📌 Objective
 
-Create glossary terms, assign owners to them, and correctly associate them with specific table columns so that they appear as Matched column term in the DataHub UI.
+Create glossary terms, assign owners to them, and correctly associate them with specific table columns so they appear as Matched column term in the DataHub UI.
 
 ---
 
@@ -154,7 +161,7 @@ Create glossary terms, assign owners to them, and correctly associate them with 
 ```bash
 ├── create_glossary_for_column.py   # Main script to create terms and associate them with columns
 ├── glossary_terms.json             # JSON with the definition of each term, table, field, and metadata
-├── config.json                     # Configuration for connecting to the DataHub GMS server
+├── config.json                     # DataHub GMS server connection configuration
 ├── README_glossary.md              # This documentation file
 
 ```
@@ -164,14 +171,14 @@ Create glossary terms, assign owners to them, and correctly associate them with 
 ## 📋 Requirements
 
 - Python >= 3.9 (recommended to use Anaconda)
-- DataHub account with GMS exposed
+- DataHub account with exposed GMS
 - Authentication token (DataHub API Key)
 
 ---
 
 ## 📦 Installation
 
-### 1. Create and activate a virtual environment (with Anaconda)
+### 1. Create and activate virtual environment (using Anaconda)
 
 ```bash
 conda create -n glossary-env python=3.10 -y
@@ -191,9 +198,9 @@ conda install --file conda-glossary-requirements.txt
 ```
 
 ### 3. Configuration
-`config.json`
+config.json
 
-This file contains the configuration for your DataHub instance:
+This file contains the configuration of your DataHub instance:
 
 ```bash
 {
@@ -204,31 +211,31 @@ This file contains the configuration for your DataHub instance:
 ⚠️ Important: The `api_url` field should not include `/api/gms`.
 
 
-### 4. 📝 Structure of the glossary_terms.json file
+### 4. 📝 Structure of glossary_terms.json file
 
 ```bash
 [
   {
-    "term": "fecha_trx",
-    "description": "Date and time when the transaction was recorded.",
-    "field": "fecha_trx",
+    "term": "transaction_date_abt_transaction",
+    "description": "Date and time the transaction was recorded.",
+    "field": "transaction_date",
     "database": "dtpm_gsit_raw_dev",
-    "table": "abt_transaccion",
+    "table": "abt_transaction",
     "platform": "athena",
     "env": "PROD"
   },
   {
-    "term": "direccion",
-    "description": "Location registered for the buyer at the time of the transaction.",
-    "field": "direccion",
+    "term": "address_abt_transaction",
+    "description": "Recorded location of the buyer at the time of the transaction.",
+    "field": "address",
     "database": "dtpm_gsit_raw_dev",
-    "table": "abt_transaccion",
+    "table": "abt_transaction",
     "platform": "athena",
     "env": "PROD"
   }
 ]
 ```
-✅ Tip: Make sure the "term" field matches exactly with the column name ("field") if you want it to appear as Matches column term in the DataHub UI.
+✅ Tip: Ensure the "term" field relates to the column name ("field"), e.g., if you have a column named "description," there may be multiple columns with this name across different tables. Therefore, use `term: address_abt_transaction` (table name)_(column name) to display it as Matches column term in the DataHub UI and avoid name conflicts.
 
 ### 5. Execution
 Once the environment is configured, run:
@@ -238,9 +245,9 @@ python create_glossary_for_column.py
 ```
 You should see something like:
 ```bash
-✅ Term created or updated: fecha_trx
-👤 Owner assigned to the term: fecha_trx
-🧩 Associated 'fecha_trx' with the column fecha_trx using editableSchemaMetadata
+✅ Term created or updated: transaction_date
+👤 Owner assigned to term: transaction_date
+🧩 Associated 'transaction_date' with the column transaction_date using editableSchemaMetadata
 ```
 
 ### 6. Expected Result
@@ -248,15 +255,15 @@ The term will appear in the Glossary module in DataHub.
 
 The term will be displayed in the dataset under the associated column.
 
-In the term view → Related Entities, you will see the dataset and the column with the badge Matches column term.
+In the term view → Related Entities, you will see the dataset and column with the badge Matches column term.
 
 🧠 Important Considerations
 
-The `editableSchemaMetadata` field is applied at the dataset level, so all associations are grouped by table.
+The editableSchemaMetadata field applies at the dataset level, so all associations are grouped by table.
 
-If you run the script multiple times, the terms will not be duplicated (it uses UPSERT).
+If you run the script multiple times, terms will not be duplicated (uses UPSERT).
 
-You can complement it with `datasetField` association for greater control if you need to mix manual and programmatic metadata.
+You can complement with association to datasetField for greater control if you need to mix manual and programmatic metadata.
 
 ## Useful Links
 
