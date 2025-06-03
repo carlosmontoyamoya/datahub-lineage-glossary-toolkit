@@ -107,6 +107,7 @@ linage_csv_s3_paths: lista de archivos CSV con definiciones de linaje
 ### 4. Estructura del CSV (datos.csv)
 | Campo                      | Tipo | Descripción                                       |
 | -------------------------- | ---- | ------------------------------------------------- |
+| job_name                   | str  | Nombre del job que genera el linaje para la relación |
 | id                         | int  | ID secuencial                                     |
 | input\_table\_source       | str  | Fuente (namespace), por ejemplo: `athena`, `glue` |
 | input\_table               | str  | Nombre completo tabla de entrada                  |
@@ -146,6 +147,8 @@ id,input_table_source,input_table,input_column,input_column_data_type,input_add_
 Este módulo permite crear términos de glosario y asociarlos automáticamente a columnas específicas de un dataset en DataHub, utilizando editableSchemaMetadata.
 
 ---
+
+![Descripción de la imagen](./img/glossary_01.png)
 
 ## 📌 Objetivo
 
