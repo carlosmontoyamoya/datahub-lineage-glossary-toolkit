@@ -1,0 +1,11 @@
+# Ignorar carpeta example
+example/
+
+# Ignorar archivo datos.csv
+datos.csv
+
+# Ignorar archivo glossary_terms.json
+glossary_terms.json
+
+# Ignorar archivo config.json
+config.json

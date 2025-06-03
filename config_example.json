@@ -1,0 +1,12 @@
+{
+    "api_url": "http://abc-123.us-east-2.elb.amazonaws.com",
+    "api_endpoint": "openapi/openlineage/",
+    "access_token": "erty.abc123.ijk123",
+    "linage_csv_s3_paths": [
+      {
+        "name": "lineage-local-test",
+        "path": "datos.csv"
+      }
+    ]
+  }
+  

@@ -1,0 +1,30 @@
+[
+  {
+    "term": "fecha_trx",
+    "description": "Fecha y hora en que se registró la transacción.",
+    "field": "fecha_trx",
+    "database": "dtpm_gsit_raw_dev",
+    "table": "abt_transaccion",
+    "platform": "athena",
+    "env": "PROD"
+  },
+  {
+      "term": "direccion",
+      "description": "Ubicación registrada del comprador al momento de la transacción.",
+      "field": "direccion",
+      "database": "dtpm_gsit_raw_dev",
+      "table": "abt_transaccion",
+      "platform": "athena",
+      "env": "PROD"
+  },
+  {
+    "term": "numero_tarjeta",
+    "description": "Fecha y hora en que se registró la transacción.",
+    "field": "numero_tarjeta",
+    "database": "dtpm_gsit_raw_dev",
+    "table": "abt_transaccion",
+    "platform": "athena",
+    "env": "PROD"
+  }
+]
+  
