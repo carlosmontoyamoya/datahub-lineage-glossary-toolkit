@@ -25,6 +25,9 @@ Este repositorio permite **emitir linaje de columnas entre tablas** de forma loc
 
 ---
 
+![Descripción de la imagen](./img/lineage_01.png)
+
+
 ## 📌 Objetivo
 
 Crear eventos de linaje entre datasets de origen y destino definidos en un archivo CSV, y enviarlos al backend de DataHub (GMS) expuesto públicamente.
